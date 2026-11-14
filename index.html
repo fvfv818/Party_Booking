@@ -1,0 +1,633 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f5f2ee">
+<title>ليالي | حجز الحفلات</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap');
+:root{
+--bg:#f5f2ee;--surface:#fff;--ink:#252331;--muted:#777482;--line:#e9e5e1;
+--purple:#70518f;--purple-dark:#563d72;--orange:#e98748;--orange-soft:#fff0e5;
+--blue:#91b8d0;--blue-dark:#557b9d;--green:#269b68;--gray:#c9c8c7;
+--shadow:0 12px 35px rgba(47,37,59,.07);--radius:22px
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic",Tahoma,Arial,sans-serif}
+button,input{font:inherit}
+button{cursor:pointer}
+.container{width:min(1160px,calc(100% - 36px));margin:auto}
+header{height:78px;display:flex;align-items:center;border-bottom:1px solid rgba(112,81,143,.09);background:rgba(255,255,255,.72);backdrop-filter:blur(12px)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:22px;color:var(--purple)}
+.brand-mark{width:40px;height:40px;border-radius:14px;background:var(--purple);color:#fff;display:grid;place-items:center;font-size:21px}
+.nav-note{color:var(--muted);font-size:13px}
+.nav-pill{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 15px;color:var(--purple);font-weight:600}
+.hero{padding:46px 0 28px;display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--purple);background:#eee8f4;border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600}
+.eyebrow span{width:7px;height:7px;background:var(--orange);border-radius:50%}
+h1{font-size:clamp(30px,4.4vw,49px);line-height:1.35;margin:15px 0 10px;letter-spacing:-1px}
+.hero p{color:var(--muted);font-size:16px;line-height:1.9;margin:0;max-width:610px}
+.hero-art{min-height:210px;border-radius:28px;position:relative;overflow:hidden;background:linear-gradient(135deg,#6f528c,#3e3154);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;color:white}
+.hero-art:before,.hero-art:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.2);border-radius:50%;width:250px;height:250px}
+.hero-art:after{width:340px;height:340px}
+.hero-symbol{font-size:75px;z-index:1;filter:drop-shadow(0 12px 18px rgba(0,0,0,.2))}
+.hero-caption{position:absolute;bottom:18px;right:22px;z-index:2;color:#eee5f4;font-size:13px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:20px 0 16px}
+.section-head h2{font-size:23px;margin:0}
+.section-head p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.count{font-size:13px;color:var(--muted)}
+.events{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:38px}
+.event-card{background:var(--surface);border:1px solid rgba(112,81,143,.08);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:.2s;display:flex;flex-direction:column}
+.event-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(47,37,59,.11)}
+.event-cover{height:150px;position:relative;display:flex;align-items:center;justify-content:center;color:white;overflow:hidden}
+.event-cover:before,.event-cover:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.25);border-radius:50%;width:180px;height:180px}
+.event-cover:after{width:240px;height:240px}
+.cover-icon{font-size:54px;z-index:1}
+.cover-1{background:linear-gradient(135deg,#b66f62,#6c466e)}
+.cover-2{background:linear-gradient(135deg,#5d7897,#343d5b)}
+.cover-3{background:linear-gradient(135deg,#d18a50,#84513f)}
+.event-body{padding:17px;display:flex;flex-direction:column;gap:12px;flex:1}
+.event-body h3{margin:0;font-size:18px}
+.meta{display:flex;flex-wrap:wrap;gap:12px;color:var(--muted);font-size:13px}
+.meta span{display:flex;align-items:center;gap:5px}
+.event-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:5px}
+.price{font-weight:700;color:var(--purple);font-size:14px}
+.primary{border:0;border-radius:12px;background:var(--orange);color:#fff;padding:10px 16px;font-weight:700;box-shadow:0 5px 12px rgba(233,135,72,.18)}
+.primary:hover{background:#d9783b}
+.primary:disabled{opacity:.5;cursor:not-allowed}
+.booking{display:none;margin:28px 0 60px;scroll-margin-top:20px}
+.booking.active{display:block}
+.booking-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+.booking-top h2{margin:0;font-size:23px}
+.back{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 14px;color:var(--purple);font-weight:600}
+.booking-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(270px,.8fr);gap:18px;align-items:start}
+.panel{background:#fff;border:1px solid rgba(112,81,143,.08);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.panel-title{font-size:16px;font-weight:700;margin:0 0 5px}
+.panel-sub{font-size:12px;color:var(--muted);margin:0 0 15px}
+.legend{display:flex;flex-wrap:wrap;gap:13px;font-size:12px;color:var(--muted);margin-bottom:14px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:4px;vertical-align:middle;margin-left:5px}
+.map-wrap{overflow:hidden;border-radius:16px;background:#faf9fb;padding:8px}
+svg{width:100%;height:auto;display:block;direction:ltr}
+.seat{cursor:pointer;outline:none}
+.seat .table-shape{fill:var(--blue);stroke:var(--blue-dark);stroke-width:1.5}
+.seat .chair-shape{fill:var(--orange);stroke:#ce7138;stroke-width:1}
+.seat.booked{cursor:not-allowed;opacity:.8}
+.seat.booked .table-shape,.seat.booked .chair-shape{fill:var(--gray);stroke:#aaa}
+.seat.selected .table-shape,.seat.selected .chair-shape{fill:var(--green);stroke:#14764b;stroke-width:2}
+.seat text{font-size:9px;fill:#fff;pointer-events:none;font-weight:700}
+.zone-label{font-size:17px;font-weight:700;fill:#fff;pointer-events:none}
+.stage-label{font-size:18px;font-weight:700;fill:#fff}
+.side-panel{position:sticky;top:16px}
+.empty-state{padding:20px 8px;text-align:center;color:var(--muted);line-height:1.8}
+.empty-icon{font-size:34px;display:block;margin-bottom:8px}
+.detail-list{display:grid;gap:0}
+.detail-row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px}
+.detail-row span{color:var(--muted)}
+.detail-row strong{text-align:left}
+.status{color:var(--green)!important}
+.form{display:none;margin-top:14px}
+.form.show{display:block}
+.form label{display:block;font-size:13px;font-weight:600;margin:10px 0 5px}
+.form input{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:11px;background:#fbfaf9;outline:none}
+.form input:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(112,81,143,.1)}
+.full{width:100%;margin-top:13px}
+.ticket{display:none;text-align:right;margin-top:13px;border:1px dashed var(--green);background:#f0faf5;border-radius:14px;padding:15px}
+.ticket.show{display:block}
+.ticket-heading{text-align:center;font-weight:700;color:var(--green);font-size:17px;margin-bottom:10px}
+.ticket-code{font-size:25px;letter-spacing:2px;color:var(--green);font-weight:700;text-align:center;margin:10px 0}
+.ticket-row{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid #dcefe5;font-size:13px}
+.ticket-row span{color:var(--muted)}
+.ticket-row strong{text-align:left;overflow-wrap:anywhere}
+.ticket-help{text-align:center;font-size:11px;color:var(--muted);line-height:1.7;margin-top:10px}
+.lookup-section{margin:20px 0 50px;scroll-margin-top:20px}
+.lookup-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lookup-grid input{width:100%;padding:12px;border:1px solid var(--line);border-radius:11px;background:#fbfaf9;outline:none}
+.lookup-result{display:none;margin-top:16px}
+.lookup-result.show{display:block}
+.lookup-result .ticket{display:block}
+footer{padding:22px 0;border-top:1px solid var(--line);color:var(--muted);font-size:12px;text-align:center}
+.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;background:#292433;color:white;padding:11px 17px;border-radius:12px;transition:.25s;z-index:10;font-size:13px;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:850px){
+.hero{grid-template-columns:1fr}.hero-art{min-height:150px}
+.events{grid-template-columns:repeat(2,1fr)}
+.booking-grid{grid-template-columns:1fr}.side-panel{position:static}
+}
+@media(max-width:560px){
+.container{width:min(100% - 24px,1160px)}
+header{height:66px}.nav-note{display:none}
+.hero{padding-top:30px}.hero-art{min-height:120px}
+.events{grid-template-columns:1fr;gap:13px}.event-cover{height:125px}
+.section-head h2,.booking-top h2{font-size:20px}
+.panel{padding:12px}.booking-top{align-items:flex-start}
+.nav-pill{font-size:12px;padding:8px 11px}
+.lookup-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+<div class="container nav">
+<div class="brand"><div class="brand-mark">♫</div><span>ليالي</span></div>
+<div class="nav-note">منصتك لحجز أجمل الأمسيات والحفلات</div>
+<button class="nav-pill" type="button" onclick="goToMyBookings()">حجوزاتي</button>
+</div>
+</header>
+
+<main class="container">
+<section class="hero">
+<div>
+<div class="eyebrow"><span></span> عِش اللحظة واحجز مكانك</div>
+<h1>ليلتك تبدأ من هنا</h1>
+<p>اكتشف الحفلات والأمسيات القادمة، اختر الفعالية التي تحبها وحدد مقعدك بسهولة. مكانك المفضل بانتظارك.</p>
+</div>
+<div class="hero-art">
+<div class="hero-symbol">♫</div>
+<div class="hero-caption">موسيقى • أجواء • ذكريات</div>
+</div>
+</section>
+
+<section id="eventsSection">
+<div class="section-head">
+<div><h2>الحفلات القادمة</h2><p>اختر حفلتك لتشاهد المقاعد المتاحة</p></div>
+<div class="count" id="eventCount">3 فعاليات</div>
+</div>
+<div class="events" id="events"></div>
+</section>
+
+<section class="booking" id="bookingSection">
+<div class="booking-top">
+<div>
+<h2 id="bookingHeading">اختيار المقاعد</h2>
+<p class="panel-sub" id="bookingSub">اختر مقعدك من مخطط القاعة</p>
+</div>
+<button class="back" onclick="backToEvents()">← العودة للحفلات</button>
+</div>
+<div class="booking-grid">
+<div class="panel">
+<h3 class="panel-title">مخطط القاعة</h3>
+<p class="panel-sub">اضغط على الطاولة أو المقعد لعرض التفاصيل</p>
+<div class="legend">
+<span><i style="background:var(--blue)"></i>طاولة (4 أشخاص)</span>
+<span><i style="background:var(--orange)"></i>مقعد عادي</span>
+<span><i style="background:var(--gray)"></i>محجوز</span>
+<span><i style="background:var(--green)"></i>اختيارك</span>
+</div>
+<div class="map-wrap"><svg id="map" viewBox="0 0 800 580" role="img" aria-label="مخطط مقاعد القاعة"></svg></div>
+<p class="notice">* هذه نسخة تجريبية؛ الأسعار والحجوزات المعروضة بيانات توضيحية وليست نظام دفع فعلياً.</p>
+</div>
+<aside class="panel side-panel">
+<h3 class="panel-title">تفاصيل الحجز</h3>
+<p class="panel-sub">معلومات المقعد الذي اخترته</p>
+<div id="details" class="empty-state">
+<span class="empty-icon">🎟️</span>
+اختر مقعداً من المخطط<br>حتى تظهر تفاصيله هنا.
+</div>
+<div class="form" id="bookingForm">
+<label for="customerName">الاسم الكامل</label>
+<input id="customerName" autocomplete="name" placeholder="اكتب اسم صاحب الحجز">
+<label for="customerPhone">رقم الهاتف</label>
+<input id="customerPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="07xxxxxxxxx">
+<button class="primary full" onclick="confirmBooking()">تأكيد الحجز التجريبي</button>
+</div>
+<div class="ticket" id="ticket">
+<div class="ticket-heading">تم إنشاء الحجز بنجاح</div>
+<div id="ticketInfo"></div>
+<div class="ticket-code" id="ticketCode"></div>
+<div class="ticket-help">احتفظ برمز الحجز ورقم الهاتف لاسترجاع تذكرتك لاحقاً من قسم حجوزاتي.</div>
+</div>
+</aside>
+</div>
+</section>
+
+<section class="lookup-section" id="lookupSection">
+<div class="section-head">
+<div><h2>حجوزاتي</h2><p>استرجع تذكرتك باستخدام رقم الهاتف ورمز الحجز</p></div>
+</div>
+<div class="panel">
+<p class="panel-sub">أدخل رقم الهاتف الذي استخدمته عند الحجز ورمز الحجز المكوّن من LY والأرقام.</p>
+<div class="lookup-grid">
+<div>
+<label for="lookupPhone">رقم الهاتف</label>
+<input id="lookupPhone" type="tel" inputmode="tel" placeholder="07xxxxxxxxx">
+</div>
+<div>
+<label for="lookupCode">رمز الحجز</label>
+<input id="lookupCode" placeholder="LY123456" autocomplete="off">
+</div>
+</div>
+<button class="primary full" id="lookupButton" onclick="lookupBooking()">استرجاع التذكرة</button>
+<div class="lookup-result" id="lookupResult"></div>
+</div>
+</section>
+</main>
+
+<footer><div class="container">ليالي © 2026 — نموذج أولي تجريبي لنظام حجز الحفلات</div></footer>
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+"use strict";
+
+const SUPABASE_URL="https://covttzytqavwkozrnnfe.supabase.co";
+const SUPABASE_KEY="sb_publishable_wOz50JXvU7I2eWiJDQtjIw_URxbkw5_";
+
+if(!window.supabase){
+ document.body.innerHTML="<div style='padding:30px;text-align:center;font-family:Arial'>تعذر تحميل مكتبة الاتصال. تحقق من الإنترنت ثم أعد تحميل الصفحة.</div>";
+ throw new Error("Supabase library did not load");
+}
+
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const NS="http://www.w3.org/2000/svg",CX=400,CY=560,P=Math.PI/180;
+
+const concerts=[
+{id:"c1",name:"ليلة الطرب العراقي",date:"الجمعة، 20 نوفمبر",time:"8:00 مساءً",icon:"🎙️",cover:"cover-1",tag:"طرب وموسيقى",minPrice:50000},
+{id:"c2",name:"أمسية العود والقانون",date:"السبت، 21 نوفمبر",time:"9:00 مساءً",icon:"🪕",cover:"cover-2",tag:"موسيقى شرقية",minPrice:50000},
+{id:"c3",name:"حفلة الأغاني الحديثة",date:"الخميس، 26 نوفمبر",time:"8:30 مساءً",icon:"🎶",cover:"cover-3",tag:"أغانٍ حديثة",minPrice:50000}
+];
+
+let current=null,seats=[],selected=null,bookingData={},isSaving=false,refreshTimer=null;
+let activeTicket=null;
+
+const money=n=>Number(n).toLocaleString("en-US")+" د.ع";
+
+function escapeHTML(value){
+ return String(value??"").replace(/[&<>"']/g,ch=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[ch]));
+}
+
+function getConcertName(id){
+ const c=concerts.find(item=>item.id===id);
+ return c?c.name:"حفلة غير معروفة";
+}
+
+function renderEvents(){
+ const root=document.getElementById("events");
+ if(!root)return;
+ root.innerHTML="";
+ concerts.forEach(c=>{
+  const card=document.createElement("article");
+  card.className="event-card";
+  card.innerHTML=`
+  <div class="event-cover ${c.cover}"><span class="cover-icon">${c.icon}</span></div>
+  <div class="event-body">
+   <div class="eyebrow">${c.tag}</div>
+   <h3>${c.name}</h3>
+   <div class="meta"><span>📅 ${c.date}</span><span>🕒 ${c.time}</span></div>
+   <div class="event-foot">
+    <span class="price">يبدأ من ${money(c.minPrice)}</span>
+    <button class="primary" type="button">اختيار الحفلة</button>
+   </div>
+  </div>`;
+  card.querySelector("button").addEventListener("click",()=>openConcert(c));
+  root.appendChild(card);
+ });
+}
+
+function ticketMarkup(data){
+ return `
+ <div class="ticket-row"><span>اسم الحفلة</span><strong>${escapeHTML(getConcertName(data.event_id))}</strong></div>
+ <div class="ticket-row"><span>اسم صاحب الحجز</span><strong>${escapeHTML(data.customer_name)}</strong></div>
+ <div class="ticket-row"><span>رقم الهاتف</span><strong>${escapeHTML(data.customer_phone)}</strong></div>
+ <div class="ticket-row"><span>المقعد</span><strong>${escapeHTML(data.seat_id)}</strong></div>`;
+}
+
+function showTicket(data,targetId="ticket"){
+ const target=document.getElementById(targetId);
+ if(!target)return;
+ target.innerHTML=`
+ <div class="ticket-heading">تم إنشاء الحجز بنجاح</div>
+ ${ticketMarkup(data)}
+ <div class="ticket-code">${escapeHTML(data.booking_code)}</div>
+ <div class="ticket-help">احتفظ برمز الحجز ورقم الهاتف لاسترجاع تذكرتك لاحقاً من قسم حجوزاتي.</div>`;
+ target.classList.add("show");
+}
+
+function hideTicket(){
+ document.getElementById("ticket").classList.remove("show");
+}
+
+async function fetchBookings(){
+ if(!current)return false;
+ const eventId=current.id;
+ const {data,error}=await db.from("bookings")
+  .select("seat_id,booking_code")
+  .eq("event_id",eventId);
+
+ if(error){
+  console.error("Supabase read error:",error);
+  toast("تعذر تحديث الحجوزات");
+  return false;
+ }
+ if(!current||current.id!==eventId)return false;
+
+ const next={};
+ (data||[]).forEach(row=>next[row.seat_id]={code:row.booking_code});
+ bookingData=next;
+
+ seats.forEach(item=>{
+  item.booking=bookingData[item.id]||null;
+  item.node.classList.toggle("booked",!!item.booking);
+  item.node.classList.remove("selected");
+  item.node.setAttribute("aria-label",item.label+(item.booking?" محجوز":" متاح"));
+ });
+
+ if(selected){
+  selected.booking=bookingData[selected.id]||null;
+  if(selected.booking){
+   selected.node.classList.remove("selected");
+   renderSeatDetails(selected);
+   document.getElementById("bookingForm").classList.remove("show");
+  }else{
+   selected.node.classList.add("selected");
+  }
+ }else{
+  updateEmptyDetails();
+ }
+ return true;
+}
+
+function startAutoRefresh(){
+ if(refreshTimer)clearInterval(refreshTimer);
+ refreshTimer=setInterval(()=>{if(current)fetchBookings();},4000);
+}
+
+function pt(r,a,s){return[CX+s*r*Math.sin(a*P),CY-r*Math.cos(a*P)]}
+
+function svgEl(tag,attrs,parent){
+ const e=document.createElementNS(NS,tag);
+ Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));
+ if(parent)parent.appendChild(e);
+ return e;
+}
+
+function sector(g,r1,r2,a1,a2,s,fill){
+ const A=pt(r2,a1,s),B=pt(r2,a2,s),C=pt(r1,a2,s),D=pt(r1,a1,s),sw=s>0?1:0;
+ svgEl("path",{d:`M${A} A${r2} ${r2} 0 0 ${sw} ${B} L${C} A${r1} ${r1} 0 0 ${1-sw} ${D}Z`,fill,stroke:"#aaa2c3","stroke-width":1.5,opacity:.9},g);
+}
+
+function addSeat(g,item){
+ item.node=g;
+ item.booking=bookingData[item.id]||null;
+ if(item.booking)g.classList.add("booked");
+ g.setAttribute("tabindex","0");
+ g.setAttribute("role","button");
+ g.setAttribute("aria-label",item.label+(item.booking?" محجوز":" متاح"));
+ const choose=()=>pickSeat(item);
+ g.addEventListener("click",choose);
+ g.addEventListener("keydown",e=>{
+  if(e.key==="Enter"||e.key===" "){e.preventDefault();choose();}
+ });
+ seats.push(item);
+}
+
+function buildMap(){
+ const svg=document.getElementById("map");
+ if(!svg)return;
+ svg.innerHTML="";
+ seats=[];
+ selected=null;
+ let tableNo=1;
+
+ [[-1,"L"],[1,"R"]].forEach(([side,key])=>{
+  sector(svg,280,410,4,74,side,"#b9b9dc");
+  sector(svg,100,262,4,74,side,"#f9c9a4");
+  let q=pt(345,38,side);
+  svgEl("text",{x:q[0],y:q[1],"text-anchor":"middle",class:"zone-label"},svg).textContent="Table "+key;
+  q=pt(180,38,side);
+  svgEl("text",{x:q[0],y:q[1],"text-anchor":"middle",class:"zone-label"},svg).textContent="Regular "+key;
+
+  [[305,9],[350,11],[395,12]].forEach(([radius,count])=>{
+   for(let i=0;i<count;i++){
+    const a=9+(i+.5)*(60/count),p=pt(radius,a,side),id=key+"-T"+tableNo;
+    const g=svgEl("g",{class:"seat",transform:`translate(${p[0]},${p[1]}) rotate(${side*a})`},svg);
+    svgEl("rect",{x:-17,y:-11,width:34,height:22,rx:5,class:"table-shape"},g);
+    svgEl("text",{x:0,y:3,"text-anchor":"middle"},g).textContent=tableNo;
+    addSeat(g,{id,type:"table",label:"طاولة "+tableNo+" ("+key+")",price:260000,persons:4});
+    tableNo++;
+   }
+  });
+
+  for(let row=1;row<=9;row++){
+   const radius=118+(row-1)*15,count=Math.floor(radius*60*P/14);
+   for(let i=0;i<count;i++){
+    const a=7+(i+.5)*(60/count),p=pt(radius,a,side),g=svgEl("g",{class:"seat"},svg);
+    svgEl("circle",{cx:p[0],cy:p[1],r:4.6,class:"chair-shape"},g);
+    addSeat(g,{id:key+"-R"+row+"-"+(i+1),type:"regular",label:"صف "+row+" – كرسي "+(i+1)+" ("+key+")",price:50000,persons:1});
+   }
+  }
+ });
+
+ svgEl("rect",{x:386,y:120,width:28,height:350,rx:4,fill:"#c5c3c7"},svg);
+ svgEl("rect",{x:300,y:490,width:200,height:60,rx:8,fill:"#8c8794"},svg);
+ svgEl("text",{x:400,y:528,"text-anchor":"middle",class:"stage-label"},svg).textContent="STAGE";
+ seats.forEach(item=>{
+  item.booking=bookingData[item.id]||null;
+  item.node.classList.toggle("booked",!!item.booking);
+ });
+ updateEmptyDetails();
+}
+
+async function openConcert(c){
+ current=c;
+ bookingData={};
+ selected=null;
+ document.getElementById("bookingHeading").textContent=c.name;
+ document.getElementById("bookingSub").textContent=c.date+" • "+c.time;
+ document.getElementById("bookingSection").classList.add("active");
+ document.getElementById("eventsSection").style.display="none";
+ document.getElementById("bookingSection").scrollIntoView({behavior:"smooth",block:"start"});
+ document.getElementById("details").innerHTML='<span class="empty-icon">⏳</span>جاري تحميل المقاعد...';
+ document.getElementById("bookingForm").classList.remove("show");
+ hideTicket();
+
+ const {data,error}=await db.from("bookings")
+  .select("seat_id,booking_code").eq("event_id",c.id);
+
+ if(error){
+  console.error("Supabase error:",error);
+  toast("تعذر الاتصال بقاعدة البيانات");
+  return;
+ }
+ if(!current||current.id!==c.id)return;
+ bookingData={};
+ (data||[]).forEach(row=>bookingData[row.seat_id]={code:row.booking_code});
+ buildMap();
+ startAutoRefresh();
+}
+
+function backToEvents(){
+ if(refreshTimer){clearInterval(refreshTimer);refreshTimer=null;}
+ document.getElementById("bookingSection").classList.remove("active");
+ document.getElementById("eventsSection").style.display="block";
+ current=null;selected=null;bookingData={};
+ document.getElementById("eventsSection").scrollIntoView({behavior:"smooth"});
+}
+
+function updateEmptyDetails(){
+ const available=seats.filter(s=>!s.booking).length;
+ document.getElementById("details").innerHTML=`
+ <span class="empty-icon">🎟️</span>
+ اختر مقعداً من المخطط<br>
+ <small>المقاعد المتاحة: ${available} من ${seats.length}</small>`;
+ document.getElementById("bookingForm").classList.remove("show");
+}
+
+function renderSeatDetails(item){
+ document.getElementById("details").innerHTML=`
+ <div class="detail-list">
+  <div class="detail-row"><span>الحفلة</span><strong>${escapeHTML(current.name)}</strong></div>
+  <div class="detail-row"><span>الموعد</span><strong>${escapeHTML(current.date)} • ${escapeHTML(current.time)}</strong></div>
+  <div class="detail-row"><span>المكان</span><strong>${escapeHTML(item.label)}</strong></div>
+  <div class="detail-row"><span>عدد الأشخاص</span><strong>${item.persons}</strong></div>
+  <div class="detail-row"><span>السعر</span><strong>${money(item.price)}</strong></div>
+  <div class="detail-row"><span>الحالة</span><strong class="${item.booking?'':'status'}">${item.booking?'محجوز':'متاح للحجز'}</strong></div>
+ </div>`;
+}
+
+function pickSeat(item){
+ if(item.booking){toast("هذا المقعد محجوز بالفعل");return;}
+ if(selected)selected.node.classList.remove("selected");
+ selected=item;
+ item.node.classList.add("selected");
+ renderSeatDetails(item);
+ document.getElementById("bookingForm").classList.add("show");
+ hideTicket();
+}
+
+function toast(msg){
+ const t=document.getElementById("toast");
+ t.textContent=msg;t.classList.add("show");
+ setTimeout(()=>t.classList.remove("show"),2500);
+}
+
+async function confirmBooking(){
+ if(!selected||selected.booking||isSaving)return;
+ const name=document.getElementById("customerName").value.trim();
+ const phone=document.getElementById("customerPhone").value.trim();
+
+ if(name.length<2){toast("يرجى كتابة الاسم الكامل");return;}
+ if(phone.replace(/\D/g,"").length<10){toast("يرجى إدخال رقم هاتف صحيح");return;}
+
+ isSaving=true;
+ const button=document.querySelector("#bookingForm button");
+ button.disabled=true;button.textContent="جاري تأكيد الحجز...";
+ const seat=selected,event=current;
+
+ try{
+  const {data,error}=await db.rpc("book_seat",{
+   p_event_id:event.id,p_seat_id:seat.id,
+   p_customer_name:name,p_customer_phone:phone
+  });
+
+  if(error){
+   console.error("Booking error:",error);
+   const message=[error.message,error.details,error.hint].filter(Boolean).join(" ");
+   if(message.includes("SEAT_ALREADY_BOOKED")){
+    await fetchBookings();toast("عذراً، هذا المقعد حُجز من جهاز آخر");
+   }else if(message.includes("INVALID_CUSTOMER_DATA")){
+    toast("يرجى التأكد من الاسم ورقم الهاتف");
+   }else{toast("لم يكتمل الحجز. تحقق من الاتصال");}
+   return;
+  }
+
+  const code=data;
+  const ticketData={
+   event_id:event.id,seat_id:seat.id,
+   customer_name:name,customer_phone:phone,
+   booking_code:code
+  };
+
+  activeTicket=ticketData;
+  bookingData[seat.id]={code};
+  seat.booking={code};
+  seat.node.classList.remove("selected");
+  seat.node.classList.add("booked");
+  document.getElementById("bookingForm").classList.remove("show");
+  document.getElementById("customerName").value="";
+  document.getElementById("customerPhone").value="";
+
+  renderSeatDetails(seat);
+  showTicket(ticketData);
+  toast("تم حفظ الحجز بنجاح");
+
+  await fetchBookings();
+  showTicket(ticketData);
+
+ }catch(error){
+  console.error("Unexpected booking error:",error);
+  toast("حدث خطأ في الاتصال. حاول مرة أخرى");
+ }finally{
+  isSaving=false;
+  button.disabled=false;
+  button.textContent="تأكيد الحجز التجريبي";
+ }
+}
+
+function goToMyBookings(){
+ document.getElementById("lookupSection").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+async function lookupBooking(){
+ const phone=document.getElementById("lookupPhone").value.trim();
+ const code=document.getElementById("lookupCode").value.trim().toUpperCase();
+ const button=document.getElementById("lookupButton");
+ const result=document.getElementById("lookupResult");
+
+ result.classList.remove("show");
+ result.innerHTML="";
+
+ if(phone.replace(/\D/g,"").length<10){
+  toast("يرجى إدخال رقم هاتف صحيح");return;
+ }
+ if(!/^LY\d{6}$/.test(code)){
+  toast("تحقق من رمز الحجز، مثال: LY123456");return;
+ }
+
+ button.disabled=true;
+ button.textContent="جاري البحث...";
+
+ try{
+  const {data,error}=await db.rpc("get_my_booking",{
+   p_phone:phone,p_code:code
+  });
+
+  if(error){
+   console.error("Lookup error:",error);
+   toast("تعذر استرجاع الحجز. حاول مرة أخرى");
+   return;
+  }
+
+  if(!data||data.length===0){
+   result.innerHTML="<div class='empty-state'>لم نعثر على حجز مطابق. تحقق من رقم الهاتف ورمز الحجز.</div>";
+   result.classList.add("show");
+   return;
+  }
+
+  const booking=data[0];
+  result.innerHTML=`
+   <div class="ticket">
+    <div class="ticket-heading">تم العثور على حجزك</div>
+    ${ticketMarkup(booking)}
+    <div class="ticket-code">${escapeHTML(booking.booking_code)}</div>
+    <div class="ticket-help">هذه تذكرتك. احتفظ بها عند حضور الحفلة.</div>
+   </div>`;
+  result.classList.add("show");
+
+ }catch(error){
+  console.error(error);
+  toast("حدث خطأ أثناء البحث عن الحجز");
+ }finally{
+  button.disabled=false;
+  button.textContent="استرجاع التذكرة";
+ }
+}
+
+renderEvents();
+</script>
+</body>
+</html>
